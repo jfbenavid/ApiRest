@@ -15,6 +15,6 @@
 
         Task<User> GetAuthUserAsync(string user);
 
-        Task<BalanceSheet[]> GetBalanceSheets(string user);
+        Task<BalanceSheet[]> GetBalanceSheetsAsync(string user);
     }
 }

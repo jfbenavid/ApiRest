@@ -1,5 +1,6 @@
 ﻿namespace Repository.Entities
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +17,8 @@
 
         [Required]
         public double Amount { get; set; }
+
+        [Required]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

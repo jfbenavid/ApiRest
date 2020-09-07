@@ -1,23 +1,15 @@
 ﻿namespace ApiRest.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
-    using AutoMapper;
     using Domain.Interfaces;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Routing;
-    using Microsoft.Extensions.Options;
     using Models;
-    using Models.Constants;
-    using Models.Enums;
-    using Repository.Entities;
     using Repository.Interfaces;
 
+    /// <summary>
+    /// comment test
+    /// </summary>
     [ApiController]
     [Route("api/[Controller]")]
     public class AuthController : ControllerBase
@@ -33,8 +25,11 @@
             _utilities = utilities;
         }
 
+        /// <summary>
+        /// Returns a Jwt to access all the endpoints.
+        /// </summary>
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(UserModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             IActionResult response = Unauthorized();
 

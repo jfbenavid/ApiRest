@@ -1,17 +1,17 @@
 ﻿namespace ApiRest.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Models.Constants;
     using Models.Enums;
     using Repository.Interfaces;
 
     [ApiController]
     [Route("api/users/{user}/[Controller]")]
+    [Authorize(Policy = Policies.NonAdmin)]
     public class RolesController : ControllerBase
     {
         private readonly IUserRepository _userRepository;

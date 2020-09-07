@@ -1,17 +1,11 @@
 ﻿namespace ApiRest.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Models.Constants;
-    using Models.Enums;
     using Repository.Entities;
     using Repository.Interfaces;
 

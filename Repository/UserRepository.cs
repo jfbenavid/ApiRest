@@ -63,7 +63,7 @@
             return await query.ToArrayAsync();
         }
 
-        public async Task<BalanceSheet[]> GetBalanceSheets(string user)
+        public async Task<BalanceSheet[]> GetBalanceSheetsAsync(string user)
         {
             return await _context.BalanceSheets
                 .Include(balance => balance.User)

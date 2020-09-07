@@ -1,5 +1,6 @@
 ﻿namespace Repository
 {
+    using System;
     using Microsoft.EntityFrameworkCore;
     using Repository.Entities;
 
@@ -55,13 +56,15 @@
                 {
                     UserId = 1,
                     Amount = 1300,
-                    BalanceSheetId = 1
+                    BalanceSheetId = 1,
+                    CreatedDate = DateTime.Now.AddHours(-2)
                 },
                 new BalanceSheet
                 {
                     UserId = 1,
                     Amount = -800,
-                    BalanceSheetId = 2
+                    BalanceSheetId = 2,
+                    CreatedDate = DateTime.Now.AddMinutes(-20)
                 });
 
             builder
