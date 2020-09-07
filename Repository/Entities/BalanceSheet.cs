@@ -1,18 +1,20 @@
 ﻿namespace Repository.Entities
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Role
+    public class BalanceSheet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RoleId { get; set; }
+        public int BalanceSheetId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public int AccountId { get; set; }
 
-        public List<User> Auths { get; set; }
+        public Account Account { get; set; }
+
+        [Required]
+        public double Amount { get; set; }
     }
 }

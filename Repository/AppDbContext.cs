@@ -32,12 +32,17 @@
                 }
             );
 
+            builder
+                .Entity<Role>()
+                .Property(p => p.RoleId)
+                .ValueGeneratedOnAdd();
+
             builder.Entity<AuthUser>().HasData(
                 new AuthUser
                 {
                     AuthUserId = 1,
                     RoleId = 1,
-                    EmailAddress = "admin@test.com",
+                    Email = "admin@test.com",
                     Username = "admin",
                     Password = "admin"
                 },
@@ -45,11 +50,16 @@
                 {
                     AuthUserId = 2,
                     RoleId = 2,
-                    EmailAddress = "user1@test.com",
+                    Email = "user1@test.com",
                     Username = "user1",
                     Password = "password"
                 }
             );
+
+            builder
+                .Entity<AuthUser>()
+                .Property(p => p.AuthUserId)
+                .ValueGeneratedOnAdd();
         }
     }
 }

@@ -5,6 +5,9 @@ namespace ApiRest
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using Domain;
+    using Domain.Interfaces;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -15,17 +18,19 @@ namespace ApiRest
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
     using Models;
+    using Models.Constants;
+    using Models.Enums;
     using Repository;
     using Repository.Interfaces;
 
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -45,10 +50,35 @@ namespace ApiRest
                         .Build());
             });
 
-            services.Configure<JwtConfigModel>(Configuration.GetSection("JwtConfig"));
+            services
+                .Configure<JwtConfigModel>(_configuration.GetSection("JwtConfig"));
 
             services
-                .AddScoped<IAuthUserRepository, AuthUserRepository>();
+                .AddScoped<IAuthUserRepository, AuthUserRepository>()
+                .AddTransient<IJwtUtils, Utilities>();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services
+                .AddAuthorization(config =>
+                {
+                    config.AddPolicy(
+                        Policies.Admin,
+                        policy =>
+                        {
+                            policy.RequireRole(
+                                Roles.Administrator.ToString());
+                        });
+
+                    config.AddPolicy(
+                        Policies.NonAdmin,
+                        policy =>
+                        {
+                            policy.RequireRole(
+                                Roles.Administrator.ToString(),
+                                Roles.User.ToString());
+                        });
+                });
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -60,9 +90,9 @@ namespace ApiRest
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtConfig:SecretKey"])),
-                        ValidIssuer = Configuration["JwtConfig:Issuer"],
-                        ValidAudience = Configuration["JwtConfig:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:SecretKey"])),
+                        ValidIssuer = _configuration["JwtConfig:Issuer"],
+                        ValidAudience = _configuration["JwtConfig:Issuer"],
                     };
                 });
 

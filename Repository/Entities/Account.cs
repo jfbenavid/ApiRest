@@ -4,15 +4,15 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Role
+    public class Account
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RoleId { get; set; }
+        public int AccountId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public int UserId { get; set; }
 
-        public List<User> Auths { get; set; }
+        public List<BalanceSheet> BalanceSheets { get; set; }
     }
 }

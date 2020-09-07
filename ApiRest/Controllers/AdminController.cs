@@ -7,10 +7,12 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Models.Constants;
+    using Models.Enums;
 
     [ApiController]
     [Route("api/[Controller]")]
-    [Authorize]
+    [Authorize(Policy = Policies.Admin)]
     public class AdminController : ControllerBase
     {
         [HttpGet]

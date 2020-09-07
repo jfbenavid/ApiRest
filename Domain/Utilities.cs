@@ -4,27 +4,37 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
+    using Domain.Interfaces;
+    using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using Models;
     using Repository.Entities;
 
-    public class Utilities
+    public class Utilities : IJwtUtils
     {
-        public static string GenerateJwt(AuthUser user, JwtConfigModel jwt)
+        private readonly JwtConfigModel _jwtConfig;
+
+        public Utilities(IOptions<JwtConfigModel> jwtConfig)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.SecretKey));
+            _jwtConfig = jwtConfig.Value;
+        }
+
+        public string GenerateJwt(AuthUser user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, user.Role.Name),
             };
 
             var token = new JwtSecurityToken(
-                issuer: jwt.Issuer,
-                audience: jwt.Issuer,
+                issuer: _jwtConfig.Issuer,
+                audience: _jwtConfig.Issuer,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: credentials);
