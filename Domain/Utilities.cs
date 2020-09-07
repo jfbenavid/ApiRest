@@ -19,7 +19,7 @@
             _jwtConfig = jwtConfig.Value;
         }
 
-        public string GenerateJwt(AuthUser user)
+        public string GenerateJwt(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

@@ -8,19 +8,13 @@
     {
         public AutoMapperModelProfile()
         {
-            CreateMap<AuthUser, AuthModel>()
+            CreateMap<User, UserModel>()
                 .ReverseMap();
 
-            CreateMap<AuthUser, CreateAuthModel>()
-                .ReverseMap();
-
-            CreateMap<Account, AccountModel>()
+            CreateMap<User, CreateUserModel>()
                 .ReverseMap();
 
             CreateMap<Role, RoleModel>()
-                .ReverseMap();
-
-            CreateMap<User, UserModel>()
                 .ReverseMap();
 
             CreateMap<BalanceSheet, BalanceSheetModel>()

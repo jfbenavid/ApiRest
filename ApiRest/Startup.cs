@@ -54,7 +54,7 @@ namespace ApiRest
                 .Configure<JwtConfigModel>(_configuration.GetSection("JwtConfig"));
 
             services
-                .AddScoped<IAuthUserRepository, AuthUserRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
                 .AddTransient<IJwtUtils, Utilities>();
 
             services.AddAutoMapper(typeof(Startup));

@@ -1,19 +1,16 @@
 ﻿namespace Repository
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using Models.Enums;
     using Repository.Entities;
     using Repository.Interfaces;
 
-    public class AuthUserRepository : AppRepository, IAuthUserRepository
+    public class UserRepository : AppRepository, IUserRepository
     {
         private readonly AppDbContext _context;
 
-        public AuthUserRepository(AppDbContext context)
+        public UserRepository(AppDbContext context)
             : base(context)
         {
             _context = context;
@@ -28,7 +25,7 @@
             authUser.RoleId = newRole;
         }
 
-        public async Task<AuthUser> GetAuthUserAsync(string username, string password)
+        public async Task<User> GetAuthUserAsync(string username, string password)
         {
             return await _context
                 .AuthUsers
@@ -39,7 +36,7 @@
                     user.Password.Equals(password));
         }
 
-        public async Task<AuthUser> GetAuthUserAsync(string user)
+        public async Task<User> GetAuthUserAsync(string user)
         {
             return await _context
                 .AuthUsers
@@ -48,17 +45,31 @@
                     user.Username.Equals(user));
         }
 
-        public async Task<AuthUser[]> GetAuthUsersAsync(bool includeRoles = false)
+        public async Task<User[]> GetAuthUsersAsync(bool includeRole = false, bool includeBalances = false)
         {
             var query = _context.AuthUsers
                 .AsNoTracking();
 
-            if (includeRoles)
+            if (includeRole)
             {
                 query = query.Include(user => user.Role);
             }
 
+            if (includeBalances)
+            {
+                query = query.Include(user => user.BalanceSheets);
+            }
+
             return await query.ToArrayAsync();
+        }
+
+        public async Task<BalanceSheet[]> GetBalanceSheets(string user)
+        {
+            return await _context.BalanceSheets
+                .Include(balance => balance.User)
+                .AsNoTracking()
+                .Where(balance => balance.User.Username.Equals(user))
+                .ToArrayAsync();
         }
 
         public async Task<Role[]> GetRolesAsync()

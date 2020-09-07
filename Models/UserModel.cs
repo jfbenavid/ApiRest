@@ -14,7 +14,7 @@
         [EnumDataType(typeof(Roles))]
         public int RoleId { get; set; } = (int)Roles.User;
 
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
 
         public string RoleName { get; set; }
     }

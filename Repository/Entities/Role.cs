@@ -13,6 +13,6 @@
         [Required]
         public string Name { get; set; }
 
-        public List<User> Auths { get; set; }
+        public List<User> Users { get; set; }
     }
 }

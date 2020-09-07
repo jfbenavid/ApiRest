@@ -1,5 +1,6 @@
 ﻿namespace Repository.Entities
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Models.Enums;
@@ -8,7 +9,7 @@
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AuthUserId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         public string Username { get; set; }
@@ -23,5 +24,7 @@
         public int RoleId { get; set; } = (int)Roles.User;
 
         public Role Role { get; set; }
+
+        public List<BalanceSheet> BalanceSheets { get; set; }
     }
 }

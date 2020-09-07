@@ -1,19 +1,18 @@
 ﻿namespace Repository
 {
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Repository.Entities;
 
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<AuthUser> AuthUsers { get; set; }
+        public DbSet<User> AuthUsers { get; set; }
+
+        public DbSet<BalanceSheet> BalanceSheets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,23 +31,18 @@
                 }
             );
 
-            builder
-                .Entity<Role>()
-                .Property(p => p.RoleId)
-                .ValueGeneratedOnAdd();
-
-            builder.Entity<AuthUser>().HasData(
-                new AuthUser
+            builder.Entity<User>().HasData(
+                new User
                 {
-                    AuthUserId = 1,
+                    UserId = 1,
                     RoleId = 1,
                     Email = "admin@test.com",
                     Username = "admin",
                     Password = "admin"
                 },
-                new AuthUser
+                new User
                 {
-                    AuthUserId = 2,
+                    UserId = 2,
                     RoleId = 2,
                     Email = "user1@test.com",
                     Username = "user1",
@@ -56,9 +50,33 @@
                 }
             );
 
+            builder.Entity<BalanceSheet>().HasData(
+                new BalanceSheet
+                {
+                    UserId = 1,
+                    Amount = 1300,
+                    BalanceSheetId = 1
+                },
+                new BalanceSheet
+                {
+                    UserId = 1,
+                    Amount = -800,
+                    BalanceSheetId = 2
+                });
+
             builder
-                .Entity<AuthUser>()
-                .Property(p => p.AuthUserId)
+                .Entity<Role>()
+                .Property(p => p.RoleId)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<BalanceSheet>()
+                .Property(p => p.BalanceSheetId)
+                .ValueGeneratedOnAdd();
+
+            builder
+                .Entity<User>()
+                .Property(p => p.UserId)
                 .ValueGeneratedOnAdd();
         }
     }

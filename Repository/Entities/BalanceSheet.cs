@@ -10,9 +10,9 @@
         public int BalanceSheetId { get; set; }
 
         [Required]
-        public int AccountId { get; set; }
+        public int UserId { get; set; }
 
-        public Account Account { get; set; }
+        public User User { get; set; }
 
         [Required]
         public double Amount { get; set; }
