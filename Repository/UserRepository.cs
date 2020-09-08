@@ -74,7 +74,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<BalanceSheet[]> GetBalanceSheetsAsync(string username)
+        public async Task<BalanceSheet[]> GetBalanceSheetsByUsernameAsync(string username)
         {
             return await _context.BalanceSheets
                 .Include(balance => balance.User)
@@ -87,6 +87,22 @@
         public async Task<Role[]> GetRolesAsync()
         {
             return await _context.Roles.ToArrayAsync();
+        }
+
+        /// <inheritdoc />
+        public async Task<Role> GetRoleByIdAsync(int roleId)
+        {
+            return await _context
+                .Roles
+                .FirstOrDefaultAsync(role => role.RoleId == roleId);
+        }
+
+        /// <inheritdoc />
+        public async Task<BalanceSheet> GetBalanceSheetByIdAsync(int balanceId)
+        {
+            return await _context
+                .BalanceSheets
+                .FirstOrDefaultAsync(balance => balance.BalanceSheetId == balanceId);
         }
     }
 }

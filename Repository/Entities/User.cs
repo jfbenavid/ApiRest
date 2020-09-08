@@ -39,6 +39,7 @@
         /// Gets or sets the id for the role to the user.
         /// </summary>
         [Required]
+        [ForeignKey("Role")]
         public int RoleId { get; set; } = (int)Roles.User;
 
         /// <summary>

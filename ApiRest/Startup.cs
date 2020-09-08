@@ -1,5 +1,6 @@
 namespace ApiRest
 {
+    using System;
     using System.IO;
     using System.Text;
     using AutoMapper;
@@ -107,7 +108,26 @@ namespace ApiRest
 
             services.AddSwaggerGen(config =>
             {
-                config.SwaggerDoc("v1", new OpenApiInfo { Title = "Jose Fabian Benavides", Version = "v1" });
+                config.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Supuesto practico Api",
+                        Version = "v1",
+                        Description = "https://drive.google.com/file/d/16nDM6M40guihLn-sM-JiBinLtM23HpgX/view?usp=sharing",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Jose Fabian Benavides Moreno",
+                            Email = "jfbenavid@gmail.com",
+                            Url = new Uri("https://jfbenavid.com")
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "MIT License",
+                            Url = new Uri("https://opensource.org/licenses/MIT")
+                        }
+                    });
+
                 config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -129,12 +149,15 @@ namespace ApiRest
                                 Id = "Bearer"
                             }
                         },
-                        new string[] {}
+                        Array.Empty<string>()
                     }
                 });
 
-                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "ApiRest.xml");
-                config.IncludeXmlComments(filePath);
+                var xmlApiPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "ApiRest.xml");
+                config.IncludeXmlComments(xmlApiPath);
+
+                var xmlModelsPath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Models.xml");
+                config.IncludeXmlComments(xmlModelsPath);
             });
         }
 

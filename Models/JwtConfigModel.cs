@@ -14,5 +14,10 @@
         /// Gets or sets the Issuer of the jwt.
         /// </summary>
         public string Issuer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minutes to the jwt alive.
+        /// </summary>
+        public int MinutesAlive { get; set; }
     }
 }

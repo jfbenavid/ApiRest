@@ -18,13 +18,19 @@
                 .ReverseMap();
 
             CreateMap<User, CreateUserModel>()
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(destination => destination.Role, options => options.Ignore());
 
             CreateMap<Role, RoleModel>()
                 .ReverseMap();
 
             CreateMap<BalanceSheet, BalanceSheetModel>()
                 .ReverseMap();
+
+            CreateMap<BalanceSheet, BalanceSheetTransferModel>()
+                .ForMember(destination => destination.Username, options => options.MapFrom(source => source.User.Username))
+                .ReverseMap()
+                .ForMember(destination => destination.User, options => options.Ignore());
         }
     }
 }

@@ -20,7 +20,7 @@
             This is only accessible with an administrator grant.
             </summary>
         </member>
-        <member name="M:ApiRest.Controllers.AdminController.#ctor(AutoMapper.IMapper,Repository.Interfaces.IUserRepository)">
+        <member name="M:ApiRest.Controllers.AdminController.#ctor(AutoMapper.IMapper,Repository.Interfaces.IUserRepository,Microsoft.AspNetCore.Routing.LinkGenerator)">
             <summary>
             Creates a new instance of <see cref="T:ApiRest.Controllers.AdminController"/>.
             </summary>
@@ -29,6 +29,18 @@
             <summary>
             Creates a <see cref="T:Repository.Entities.User"/> in the database.
             </summary>
+            <param name="model">Information about the user to create.</param>
+            <remarks>
+            SAMPLE REQUEST \
+            POST api/Admin \
+            { \
+                "email": "email",
+                "roleId": 1,
+                "username": "name",
+                "password": "pass"
+            }
+            </remarks>
+            <response code="200">Returns information created.</response>
         </member>
         <member name="M:ApiRest.Controllers.AdminController.Get">
             <summary>
@@ -45,7 +57,7 @@
             Controller to manage all related to Login in the api.
             </summary>
         </member>
-        <member name="M:ApiRest.Controllers.AuthController.#ctor(Repository.Interfaces.IUserRepository,Domain.Interfaces.IJwtUtils)">
+        <member name="M:ApiRest.Controllers.AuthController.#ctor(Repository.Interfaces.IUserRepository,Domain.Interfaces.IJwtUtils,Microsoft.Extensions.Options.IOptions{Models.JwtConfigModel})">
             <summary>
             Creates a new instance of <see cref="T:ApiRest.Controllers.AuthController"/>.
             </summary>
@@ -53,6 +65,57 @@
         <member name="M:ApiRest.Controllers.AuthController.Login(Models.LoginModel)">
             <summary>
             Creates and returns a Jwt to access the endpoints.
+            </summary>
+            <param name="model">Needed information to login and get the token.</param>
+            <response code="200">Returns the json web token.</response>
+            <response code="401">The information provided does not match with the database info.</response>
+        </member>
+        <member name="T:ApiRest.Controllers.BalancesController">
+            <summary>
+            Controller to manage the Users.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.#ctor(Repository.Interfaces.IUserRepository,AutoMapper.IMapper,Microsoft.AspNetCore.Routing.LinkGenerator)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Controllers.BalancesController"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.Get(System.String)">
+            <summary>
+            Gets all the balances for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+            <param name="username">Username which you want to get the information.</param>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.GetCurrentBalance(System.String)">
+            <summary>
+            Gets the total amount of the balances for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+            <param name="username">Username which you want to get the information.</param>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.TransferBalance(System.String,Models.BalanceSheetTransferModel)">
+            <summary>
+            Creates a new <see cref="T:Repository.Entities.BalanceSheet"/> for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+            <param name="username">Username to transfer the balance.</param>
+            <param name="model">Information to transfer.</param>
+            <remarks>
+            SAMPLE REQUEST \
+            POST /api/Users/1/Balances \
+            { \
+                "amount": 150
+            }
+            </remarks>
+            <response code="200">Information created.</response>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.Delete(System.Int32)">
+            <summary>
+            Deletes a BalanceSheet from the database.
+            </summary>
+            <param name="balanceId">Id for the balance to delete.</param>
+        </member>
+        <member name="M:ApiRest.Controllers.BalancesController.GetCurrentUserName">
+            <summary>
+            Gets and returns the username from the claims in the header.
             </summary>
         </member>
         <member name="T:ApiRest.Controllers.RolesController">
@@ -69,36 +132,8 @@
             <summary>
             Changes the role for a user.
             </summary>
-        </member>
-        <member name="T:ApiRest.Controllers.UsersController">
-            <summary>
-            Controller to manage the Users.
-            </summary>
-        </member>
-        <member name="M:ApiRest.Controllers.UsersController.#ctor(Repository.Interfaces.IUserRepository,AutoMapper.IMapper)">
-            <summary>
-            Creates a new instance of <see cref="T:ApiRest.Controllers.UsersController"/>.
-            </summary>
-        </member>
-        <member name="M:ApiRest.Controllers.UsersController.Get(System.String)">
-            <summary>
-            Gets all the balances for a <see cref="T:Repository.Entities.User"/>.
-            </summary>
-        </member>
-        <member name="M:ApiRest.Controllers.UsersController.GetCurrentBalance(System.String)">
-            <summary>
-            Gets the total amount of the balances for a <see cref="T:Repository.Entities.User"/>.
-            </summary>
-        </member>
-        <member name="M:ApiRest.Controllers.UsersController.TransferBalance(Models.BalanceSheetTransferModel)">
-            <summary>
-            Creates a new <see cref="T:Repository.Entities.BalanceSheet"/> for a <see cref="T:Repository.Entities.User"/>.
-            </summary>
-        </member>
-        <member name="M:ApiRest.Controllers.UsersController.GetCurrentUserName">
-            <summary>
-            Gets and returns the username from the claims in the header.
-            </summary>
+            <param name="username">Username which will be updated.</param>
+            <param name="newRole">Id of the new role to assign.</param>
         </member>
         <member name="T:ApiRest.Program">
             <summary>

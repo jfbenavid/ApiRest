@@ -25,9 +25,7 @@
             _jwtConfig = jwtConfig.Value;
         }
 
-        /// <summary>
-        /// <see cref="IJwtUtils.GenerateJwt(User)"/>
-        /// </summary>
+        /// <inheritdoc />
         public string GenerateJwt(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecretKey));
@@ -45,7 +43,7 @@
                 issuer: _jwtConfig.Issuer,
                 audience: _jwtConfig.Issuer,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddMinutes(_jwtConfig.MinutesAlive),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

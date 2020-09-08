@@ -29,6 +29,11 @@
         Task<Role[]> GetRolesAsync();
 
         /// <summary>
+        /// Gets a role in the database.
+        /// </summary>
+        Task<Role> GetRoleByIdAsync(int roleId);
+
+        /// <summary>
         /// Gets the information for an user with its username.
         /// </summary>
         Task<User> GetUserInfoAsync(string username);
@@ -36,6 +41,11 @@
         /// <summary>
         /// Gets all the balances for an user with its username.
         /// </summary>
-        Task<BalanceSheet[]> GetBalanceSheetsAsync(string username);
+        Task<BalanceSheet[]> GetBalanceSheetsByUsernameAsync(string username);
+
+        /// <summary>
+        /// Gets a balance by its id.
+        /// </summary>
+        Task<BalanceSheet> GetBalanceSheetByIdAsync(int balanceId);
     }
 }

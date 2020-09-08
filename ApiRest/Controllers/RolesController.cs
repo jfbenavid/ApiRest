@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Constants;
     using Models.Enums;
@@ -30,7 +31,12 @@
         /// <summary>
         /// Changes the role for a user.
         /// </summary>
+        /// <param name="username">Username which will be updated.</param>
+        /// <param name="newRole">Id of the new role to assign.</param>
         [HttpPatch("{newRole}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Patch(string username, [EnumDataType(typeof(Roles))] int newRole)
         {
             try
@@ -45,7 +51,7 @@
 
                 if (await _userRepository.SaveChangesAsync())
                 {
-                    return Ok("Updated");
+                    return Ok();
                 }
                 else
                 {
