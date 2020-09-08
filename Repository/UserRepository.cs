@@ -104,5 +104,13 @@
                 .BalanceSheets
                 .FirstOrDefaultAsync(balance => balance.BalanceSheetId == balanceId);
         }
+
+        /// <inheritdoc />
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            return await _context
+                .AuthUsers
+                .FirstOrDefaultAsync(user => user.UserId == userId);
+        }
     }
 }

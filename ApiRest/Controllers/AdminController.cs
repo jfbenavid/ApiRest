@@ -102,5 +102,32 @@
 
             return _autoMapper.Map<RoleModel[]>(data);
         }
+
+        /// <summary>
+        /// Deletes an user from the database.
+        /// </summary>
+        /// <param name="userId">Id of the user to delete.</param>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return BadRequest("The user with the id provided does not exists.");
+            }
+
+            _userRepository.Delete(user);
+
+            if (await _userRepository.SaveChangesAsync())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("The user could not be deleted.");
+            }
+        }
     }
 }

@@ -47,5 +47,10 @@
         /// Gets a balance by its id.
         /// </summary>
         Task<BalanceSheet> GetBalanceSheetByIdAsync(int balanceId);
+
+        /// <summary>
+        /// Gets an user searching by its id.
+        /// </summary>
+        Task<User> GetUserByIdAsync(int userId);
     }
 }

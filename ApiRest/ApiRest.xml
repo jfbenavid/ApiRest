@@ -52,6 +52,12 @@
             Gets all the <see cref="T:Repository.Entities.Role"/> in the database.
             </summary>
         </member>
+        <member name="M:ApiRest.Controllers.AdminController.DeleteUser(System.Int32)">
+            <summary>
+            Deletes an user from the database.
+            </summary>
+            <param name="userId">Id of the user to delete.</param>
+        </member>
         <member name="T:ApiRest.Controllers.AuthController">
             <summary>
             Controller to manage all related to Login in the api.
