@@ -46,18 +46,9 @@
                     UserId = 2,
                     RoleId = 1,
                     Email = "user1@test.com",
-                    Username = "user1",
+                    Username = "user",
                     Password = "password"
-                },
-                new User
-                {
-                    UserId = 3,
-                    RoleId = 2,
-                    Email = "user2@test.com",
-                    Username = "user2",
-                    Password = "password"
-                }
-            );
+                });
 
             builder.Entity<BalanceSheet>().HasData(
                 new BalanceSheet
