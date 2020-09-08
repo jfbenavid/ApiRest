@@ -58,7 +58,7 @@
         [HttpGet]
         public async Task<ActionResult<UserModel[]>> Get()
         {
-            var data = await _userRepository.GetAuthUsersAsync(includeRole: true, includeBalances: true);
+            var data = await _userRepository.GetAllUsersAsync(includeRole: true, includeBalances: true);
 
             return _autoMapper.Map<UserModel[]>(data);
         }

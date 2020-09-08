@@ -36,7 +36,7 @@
         {
             IActionResult response = Unauthorized();
 
-            var user = await _userRepository.GetAuthUserAsync(model.Username, model.Password);
+            var user = await _userRepository.GetUserAsync(model.Username, model.Password);
 
             if (user != null)
             {

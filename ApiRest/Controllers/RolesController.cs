@@ -13,7 +13,7 @@
     /// Controller to manage the roles for the users.
     /// </summary>
     [ApiController]
-    [Route("api/users/{user}/[Controller]")]
+    [Route("api/users/{username}/[Controller]")]
     [Authorize(Policy = Policies.NonAdmin)]
     public class RolesController : ControllerBase
     {
@@ -31,17 +31,17 @@
         /// Changes the role for a user.
         /// </summary>
         [HttpPatch("{newRole}")]
-        public async Task<IActionResult> Patch(string user, [EnumDataType(typeof(Roles))] int newRole)
+        public async Task<IActionResult> Patch(string username, [EnumDataType(typeof(Roles))] int newRole)
         {
             try
             {
-                var authUser = await _userRepository.GetAuthUserAsync(user);
+                var authUser = await _userRepository.GetUserInfoAsync(username);
                 if (authUser == null)
                 {
                     return BadRequest("User not Found.");
                 }
 
-                await _userRepository.ChangeRoleAsync(user, newRole);
+                await _userRepository.ChangeRoleAsync(username, newRole);
 
                 if (await _userRepository.SaveChangesAsync())
                 {

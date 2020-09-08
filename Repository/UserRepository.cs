@@ -6,26 +6,34 @@
     using Repository.Entities;
     using Repository.Interfaces;
 
+    /// <summary>
+    /// Contains all the methods related to the <see cref="User"/> entity.
+    /// </summary>
     public class UserRepository : AppRepository, IUserRepository
     {
         private readonly AppDbContext _context;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="UserRepository"/>.
+        /// </summary>
         public UserRepository(AppDbContext context)
             : base(context)
         {
             _context = context;
         }
 
-        public async Task ChangeRoleAsync(string user, int newRole)
+        /// <inheritdoc />
+        public async Task ChangeRoleAsync(string username, int newRole)
         {
             var authUser = await _context
                 .AuthUsers
-                .FirstAsync(user => user.Username.Equals(user));
+                .FirstAsync(user => user.Username.Equals(username));
 
             authUser.RoleId = newRole;
         }
 
-        public async Task<User> GetAuthUserAsync(string username, string password)
+        /// <inheritdoc />
+        public async Task<User> GetUserAsync(string username, string password)
         {
             return await _context
                 .AuthUsers
@@ -36,16 +44,18 @@
                     user.Password.Equals(password));
         }
 
-        public async Task<User> GetAuthUserAsync(string user)
+        /// <inheritdoc />
+        public async Task<User> GetUserInfoAsync(string username)
         {
             return await _context
                 .AuthUsers
                 .AsNoTracking()
                 .FirstOrDefaultAsync(user =>
-                    user.Username.Equals(user));
+                    user.Username.Equals(username));
         }
 
-        public async Task<User[]> GetAuthUsersAsync(bool includeRole = false, bool includeBalances = false)
+        /// <inheritdoc />
+        public async Task<User[]> GetAllUsersAsync(bool includeRole = false, bool includeBalances = false)
         {
             var query = _context.AuthUsers
                 .AsNoTracking();
@@ -63,15 +73,17 @@
             return await query.ToArrayAsync();
         }
 
-        public async Task<BalanceSheet[]> GetBalanceSheetsAsync(string user)
+        /// <inheritdoc />
+        public async Task<BalanceSheet[]> GetBalanceSheetsAsync(string username)
         {
             return await _context.BalanceSheets
                 .Include(balance => balance.User)
                 .AsNoTracking()
-                .Where(balance => balance.User.Username.Equals(user))
+                .Where(balance => balance.User.Username.Equals(username))
                 .ToArrayAsync();
         }
 
+        /// <inheritdoc />
         public async Task<Role[]> GetRolesAsync()
         {
             return await _context.Roles.ToArrayAsync();

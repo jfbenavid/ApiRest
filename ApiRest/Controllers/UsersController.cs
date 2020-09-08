@@ -74,7 +74,7 @@
                 return BadRequest("The amount to transfer cannot be less or equals to zero.");
             }
 
-            var user = await _repository.GetAuthUserAsync(model.Username);
+            var user = await _repository.GetUserInfoAsync(model.Username);
             if (user == null)
             {
                 return BadRequest("User not found.");
