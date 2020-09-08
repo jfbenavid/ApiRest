@@ -116,5 +116,25 @@
             Creates a host builder, configuring the web application.
             </summary>
         </member>
+        <member name="T:ApiRest.Startup">
+            <summary>
+            Class to configure all the application.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Startup"/>
+            </summary>
+        </member>
+        <member name="M:ApiRest.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure all the services in the web app.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configure all the middlewares in the application.
+            </summary>
+        </member>
     </members>
 </doc>
