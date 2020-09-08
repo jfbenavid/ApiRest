@@ -7,8 +7,15 @@ namespace ApiRest
     using Microsoft.Extensions.Logging;
     using Repository;
 
+    /// <summary>
+    /// Class that inicialize the project.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method to create the project.
+        /// Ensures that the database is created before it is needed.
+        /// </summary>
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -32,6 +39,9 @@ namespace ApiRest
             host.Run();
         }
 
+        /// <summary>
+        /// Creates a host builder, configuring the web application.
+        /// </summary>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

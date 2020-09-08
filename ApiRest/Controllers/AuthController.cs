@@ -8,7 +8,7 @@
     using Repository.Interfaces;
 
     /// <summary>
-    /// comment test
+    /// Controller to manage all related to Login in the api.
     /// </summary>
     [ApiController]
     [Route("api/[Controller]")]
@@ -17,6 +17,9 @@
         private readonly IUserRepository _userRepository;
         private readonly IJwtUtils _utilities;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthController"/>.
+        /// </summary>
         public AuthController(
             IUserRepository userRepository,
             IJwtUtils utilities)
@@ -26,7 +29,7 @@
         }
 
         /// <summary>
-        /// Returns a Jwt to access all the endpoints.
+        /// Creates and returns a Jwt to access the endpoints.
         /// </summary>
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel model)

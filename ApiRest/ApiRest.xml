@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApiRest</name>
+    </assembly>
+    <members>
+        <member name="T:ApiRest.AutoMapperModelProfile">
+            <summary>
+            Class to manage the profile for automapper.
+            </summary>
+        </member>
+        <member name="M:ApiRest.AutoMapperModelProfile.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.AutoMapperModelProfile"/>.
+            </summary>
+        </member>
+        <member name="T:ApiRest.Controllers.AdminController">
+            <summary>
+            Controller to manage all related to user and roles.
+            This is only accessible with an administrator grant.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AdminController.#ctor(AutoMapper.IMapper,Repository.Interfaces.IUserRepository)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Controllers.AdminController"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AdminController.Post(Models.CreateUserModel)">
+            <summary>
+            Creates a <see cref="T:Repository.Entities.User"/> in the database.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AdminController.Get">
+            <summary>
+            Gets all the information related to <see cref="T:Repository.Entities.User"/>, included roles and balances.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AdminController.GetRoles">
+            <summary>
+            Gets all the <see cref="T:Repository.Entities.Role"/> in the database.
+            </summary>
+        </member>
+        <member name="T:ApiRest.Controllers.AuthController">
+            <summary>
+            Controller to manage all related to Login in the api.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AuthController.#ctor(Repository.Interfaces.IUserRepository,Domain.Interfaces.IJwtUtils)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Controllers.AuthController"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.AuthController.Login(Models.LoginModel)">
+            <summary>
+            Creates and returns a Jwt to access the endpoints.
+            </summary>
+        </member>
+        <member name="T:ApiRest.Controllers.RolesController">
+            <summary>
+            Controller to manage the roles for the users.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.RolesController.#ctor(Repository.Interfaces.IUserRepository)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Controllers.RolesController"/>
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.RolesController.Patch(System.String,System.Int32)">
+            <summary>
+            Changes the role for a user.
+            </summary>
+        </member>
+        <member name="T:ApiRest.Controllers.UsersController">
+            <summary>
+            Controller to manage the Users.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.UsersController.#ctor(Repository.Interfaces.IUserRepository,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:ApiRest.Controllers.UsersController"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.UsersController.Get(System.String)">
+            <summary>
+            Gets all the balances for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.UsersController.GetCurrentBalance(System.String)">
+            <summary>
+            Gets the total amount of the balances for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.UsersController.TransferBalance(Models.BalanceSheetTransferModel)">
+            <summary>
+            Creates a new <see cref="T:Repository.Entities.BalanceSheet"/> for a <see cref="T:Repository.Entities.User"/>.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Controllers.UsersController.GetCurrentUserName">
+            <summary>
+            Gets and returns the username from the claims in the header.
+            </summary>
+        </member>
+        <member name="T:ApiRest.Program">
+            <summary>
+            Class that inicialize the project.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Program.Main(System.String[])">
+            <summary>
+            Main method to create the project.
+            Ensures that the database is created before it is needed.
+            </summary>
+        </member>
+        <member name="M:ApiRest.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates a host builder, configuring the web application.
+            </summary>
+        </member>
+    </members>
+</doc>

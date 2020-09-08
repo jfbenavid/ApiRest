@@ -11,6 +11,9 @@
     using Repository.Entities;
     using Repository.Interfaces;
 
+    /// <summary>
+    /// Controller to manage the Users.
+    /// </summary>
     [ApiController]
     [Route("api/[Controller]")]
     [Authorize(Policy = Policies.NonAdmin)]
@@ -19,6 +22,9 @@
         private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="UsersController"/>.
+        /// </summary>
         public UsersController(
             IUserRepository repository,
             IMapper mapper)
@@ -27,6 +33,9 @@
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets all the balances for a <see cref="User"/>.
+        /// </summary>
         [HttpGet("balances/all/{username?}")]
         public async Task<ActionResult<BalanceSheetModel[]>> Get(string username = null)
         {
@@ -36,6 +45,9 @@
             return _mapper.Map<BalanceSheetModel[]>(balances);
         }
 
+        /// <summary>
+        /// Gets the total amount of the balances for a <see cref="User"/>.
+        /// </summary>
         [HttpGet("balances/{username?}")]
         public async Task<ActionResult<BalanceSheetTransferModel>> GetCurrentBalance(string username = null)
         {
@@ -51,6 +63,9 @@
             };
         }
 
+        /// <summary>
+        /// Creates a new <see cref="BalanceSheet"/> for a <see cref="User"/>.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> TransferBalance(BalanceSheetTransferModel model)
         {
@@ -83,6 +98,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets and returns the username from the claims in the header.
+        /// </summary>
         private string GetCurrentUserName()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

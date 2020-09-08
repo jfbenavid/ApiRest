@@ -1,5 +1,6 @@
 namespace ApiRest
 {
+    using System.IO;
     using System.Text;
     using AutoMapper;
     using Domain;
@@ -11,6 +12,7 @@ namespace ApiRest
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.PlatformAbstractions;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
     using Models;
@@ -19,15 +21,24 @@ namespace ApiRest
     using Repository;
     using Repository.Interfaces;
 
+    /// <summary>
+    /// Class to configure all the application.
+    /// </summary>
     public class Startup
     {
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="Startup"/>
+        /// </summary>
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Configure all the services in the web app.
+        /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(config =>
@@ -121,9 +132,15 @@ namespace ApiRest
                         new string[] {}
                     }
                 });
+
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "ApiRest.xml");
+                config.IncludeXmlComments(filePath);
             });
         }
 
+        /// <summary>
+        /// Configure all the middlewares in the application.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

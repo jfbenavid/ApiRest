@@ -9,6 +9,9 @@
     using Models.Enums;
     using Repository.Interfaces;
 
+    /// <summary>
+    /// Controller to manage the roles for the users.
+    /// </summary>
     [ApiController]
     [Route("api/users/{user}/[Controller]")]
     [Authorize(Policy = Policies.NonAdmin)]
@@ -16,11 +19,17 @@
     {
         private readonly IUserRepository _userRepository;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="RolesController"/>
+        /// </summary>
         public RolesController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Changes the role for a user.
+        /// </summary>
         [HttpPatch("{newRole}")]
         public async Task<IActionResult> Patch(string user, [EnumDataType(typeof(Roles))] int newRole)
         {
