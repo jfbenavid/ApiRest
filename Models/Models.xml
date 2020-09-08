@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Models</name>
+    </assembly>
+    <members>
+        <member name="T:Models.BalanceSheetModel">
+            <summary>
+            Model to manage the balance sheets information.
+            </summary>
+        </member>
+        <member name="P:Models.BalanceSheetModel.CreatedDate">
+            <summary>
+            Gets or sets the Created date of the balance sheet.
+            </summary>
+        </member>
+        <member name="P:Models.BalanceSheetModel.Amount">
+            <summary>
+            Gets or sets the Amount of the sum for the balance sheets.
+            </summary>
+        </member>
+        <member name="T:Models.BalanceSheetTransferModel">
+            <summary>
+            Model to transfer a balance sheet to another user.
+            </summary>
+        </member>
+        <member name="P:Models.BalanceSheetTransferModel.Username">
+            <summary>
+            Gets or sets the username to transfer the balance sheet.
+            </summary>
+        </member>
+        <member name="P:Models.BalanceSheetTransferModel.Amount">
+            <summary>
+            Gets or sets the amount to transfer the balance sheet.
+            </summary>
+        </member>
+        <member name="T:Models.Constants.Policies">
+            <summary>
+            Class to set the constants for the configurated policies in the web app.
+            </summary>
+        </member>
+        <member name="F:Models.Constants.Policies.Admin">
+            <summary>
+            Policy for administrators.
+            </summary>
+        </member>
+        <member name="F:Models.Constants.Policies.NonAdmin">
+            <summary>
+            Policy for non admin people.
+            </summary>
+        </member>
+        <member name="T:Models.CreateUserModel">
+            <summary>
+            Model to create a user.
+            </summary>
+        </member>
+        <member name="P:Models.CreateUserModel.Email">
+            <summary>
+            Gets or sets the Email address for the user.
+            </summary>
+        </member>
+        <member name="P:Models.CreateUserModel.RoleId">
+            <summary>
+            Gets or sets the roleId for the user.
+            </summary>
+        </member>
+        <member name="T:Models.Enums.Roles">
+            <summary>
+            Enum that contains all the existent roles in the web app.
+            </summary>
+        </member>
+        <member name="T:Models.JwtConfigModel">
+            <summary>
+            Model to use the information in appSettings.json for jwt.
+            </summary>
+        </member>
+        <member name="P:Models.JwtConfigModel.SecretKey">
+            <summary>
+            Gets or sets the secret key of the jwt.
+            </summary>
+        </member>
+        <member name="P:Models.JwtConfigModel.Issuer">
+            <summary>
+            Gets or sets the Issuer of the jwt.
+            </summary>
+        </member>
+        <member name="P:Models.JwtConfigModel.MinutesAlive">
+            <summary>
+            Gets or sets the minutes to the jwt alive.
+            </summary>
+        </member>
+        <member name="T:Models.JwtModel">
+            <summary>
+            Model to register information about JWT.
+            </summary>
+        </member>
+        <member name="P:Models.JwtModel.AccessToken">
+            <summary>
+            Gets or sets the Access token for an user.
+            </summary>
+        </member>
+        <member name="P:Models.JwtModel.ExpirationTime">
+            <summary>
+            Gets or sets the expiration time for the token.
+            </summary>
+        </member>
+        <member name="T:Models.LoginModel">
+            <summary>
+            Model to manage the login to the web app.
+            </summary>
+        </member>
+        <member name="P:Models.LoginModel.Username">
+            <summary>
+            Gets or sets the username to login.
+            </summary>
+        </member>
+        <member name="P:Models.LoginModel.Password">
+            <summary>
+            Gets or sets the password to login.
+            </summary>
+        </member>
+        <member name="T:Models.RoleModel">
+            <summary>
+            Model to manage the roles information.
+            </summary>
+        </member>
+        <member name="P:Models.RoleModel.RoleId">
+            <summary>
+            Gets or sets the Id for the Role.
+            </summary>
+        </member>
+        <member name="P:Models.RoleModel.Name">
+            <summary>
+            Gets or sets the Name for the role.
+            </summary>
+        </member>
+        <member name="T:Models.UserModel">
+            <summary>
+            Model to manage the user information.
+            </summary>
+        </member>
+        <member name="P:Models.UserModel.Email">
+            <summary>
+            Gets or sets the Email address for the user.
+            </summary>
+        </member>
+        <member name="P:Models.UserModel.RoleName">
+            <summary>
+            Gets or sets the Role name for the user.
+            </summary>
+        </member>
+    </members>
+</doc>
